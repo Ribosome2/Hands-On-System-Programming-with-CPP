@@ -1,0 +1,41 @@
+[Scia Reto](https://sciareto.org) mind map   
+> __version__=`1.1`,showJumps=`true`
+---
+
+# Root topic
+
+## SystemCall
+
+### 操作系统提供了API开控制系统的资源和行为
+
+### API  底层就是通过调用一种叫system call的<br/>ABI\(application binary interface\)来对系统进行调用
+
+### system call 的剖析
+
+#### x86架构
+
+##### 早期通过interrupt调用
+
+###### 但是interupt很慢
+
+####### 调用的时候要保存cpu状态，做完要恢复状态
+
+##### 现代的x86 CPU 提供了fast system call来<br/>解决inrerrupt慢的问题
+
+###### OS通过提前定义好内存布局，大大降低<br/>了CPU状态保存和恢复的OverHead
+
+### system call is expensive,要尽量少调用
+
+### 不同类型的System Calls
+
+#### Console Input /output
+
+#### Memory Allocation
+
+##### 大多数应用启动的时候就会被分配全局和stack 内存<br/>如果只用到初始被分配这些，就不用向系统要，但是如果用完<br/>堆内存，就要通过system call向系统申请
+
+###### 如果RAM有限，系统就需要把没有在执行的应用的内存拿来用<br/>通过把这些应用切换换到磁盘中去，这种操作就很耗性能
+
+####### 怎么换到磁盘中
+
+###### 所以要避免在时间敏感的代码中使用malloc\(\)或者free\(\)
